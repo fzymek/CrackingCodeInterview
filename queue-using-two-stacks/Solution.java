@@ -6,27 +6,28 @@ import java.util.regex.*;
 
 public class Solution {
     public static class MyQueue<T> {
-        Stack<T> stackNewestOnTop = new Stack<T>();
-        Stack<T> stackOldestOnTop = new Stack<T>();
+        Stack<T> N  = new Stack<T>();
+        Stack<T> O  = new Stack<T>();
 
         public void enqueue(T value) { // Push onto newest stack
- 		while (!stackNewestOnTop.isEmpty()) {
-			stackOldestOnTop.push(stackNewestOnTop.pop());
-		}           
-
-		stackNewestOnTop.push(value);
-		while(!stackOldestOnTop.isEmpty()) {
-			stackNewestOnTop.push(stackOldestOnTop.pop());
-		}
-        }
+		N.push(value);		
+	 }
 
         public T peek() {
-        	return stackNewestOnTop.peek();    
+		
+		if (O.empty()) copy();
+
+		return O.peek();
         }
 
         public T dequeue() {
-         	return stackNewestOnTop.pop();   
-        }
+		if (O.empty()) copy();
+		return O.pop();
+        }	
+
+	private void copy() {
+		while(!N.empty()) O.push(N.pop());
+	}
     }
 
     
