@@ -11,12 +11,14 @@ public class Solution {
 
 	}
 
-	public boolea hasCycle(Node node) {
+	public boolean hasCycle(Node node) {
 		return false;
 	}
 
-	public static void main(String args...) {
+	public static void main(String []args) {
 
+		Node head = null;
+		
 		System.out.println(new Solution().hasCycle(head));
 	}
 
