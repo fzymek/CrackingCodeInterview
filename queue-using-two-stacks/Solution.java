@@ -10,15 +10,22 @@ public class Solution {
         Stack<T> stackOldestOnTop = new Stack<T>();
 
         public void enqueue(T value) { // Push onto newest stack
-            
+ 		while (!stackNewestOnTop.isEmpty()) {
+			stackOldestOnTop.push(stackNewestOnTop.pop());
+		}           
+
+		stackNewestOnTop.push(value);
+		while(!stackOldestOnTop.isEmpty()) {
+			stackNewestOnTop.push(stackOldestOnTop.pop());
+		}
         }
 
         public T peek() {
-             
+        	return stackNewestOnTop.peek();    
         }
 
         public T dequeue() {
-            
+         	return stackNewestOnTop.pop();   
         }
     }
 
