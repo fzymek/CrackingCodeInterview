@@ -14,21 +14,26 @@ public class Solution {
 	}
 
 	public static void main(String []args) {
-
-
-		Node root = constructTree(false);
-
-
+		Node root = constructTree(true);
 		
 		System.out.println(new Solution().checkBST(root));
-
-	
 	}	
 
 
 	boolean checkBST(Node node) {
-	
-		return false;
+		return isValidBST(node, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	boolean isValidBST(Node node, int currentMin, int currentMax) {
+		if (node == null) return true;
+
+		//System.out.print(node.data + " -> ");
+		
+		if (node.data <= currentMin || node.data >= currentMax) {
+			return false;
+		}
+		
+		return isValidBST(node.left, currentMin, node.data) &&  isValidBST(node.right, node.data, currentMax);
 	}
 	
 
