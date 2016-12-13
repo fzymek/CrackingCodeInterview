@@ -23,8 +23,11 @@ public class Solution {
     }
 
 
-	public static int mergeSort(int[] data, int start, int end) {
+	public static long mergeSort(int[] data, int start, int end) {
 		//System.out.println(String.format("mergeSort(%s, %d, %d)", Arrays.toString(data), start, end));		
+		
+		long totalSwaps = 0;
+
 		if (start >= end) {
 			//nothing to sort
 			return 0;
@@ -33,28 +36,28 @@ public class Solution {
 		int mid = (start + end) / 2;
 		
 
-		mergeSort(data, start, mid);
-		mergeSort(data, mid+1, end);	
-		merge(data, start, end);
+		totalSwaps += mergeSort(data, start, mid);
+		totalSwaps += mergeSort(data, mid+1, end);	
+		totalSwaps += merge(data, start, end);
 		//System.out.println(Arrays.toString(data));
-		return 0;
+		return totalSwaps;
 
 	}
 
 
-	public static void merge(int[] data, int start, int end) {
+	public static long merge(int[] data, int start, int end) {
 		//System.out.println(String.format("merge(%s, %d, %d)",Arrays.toString(data), start, end));	
-
+		long swaps = 0;
 		int tmp[] = new int[end - start + 1];
 		int mid = (start + end)/2;
 		int lpos, rpos, tmppos;
 		lpos = start;
 		rpos = mid + 1;
 		tmppos = 0;
-		
 		while(lpos <= mid && rpos <= end) {
 			if (data[lpos] > data[rpos]) {
 				tmp[tmppos++] = data[rpos++];
+				swaps += (mid + 1 - lpos);
 			} else {
 				tmp[tmppos++] = data[lpos++];
 			}
@@ -69,6 +72,6 @@ public class Solution {
 		}
 
 		System.arraycopy(tmp, 0, data, start, end - start +1);
-		
+		return swaps;
 	}
 }
